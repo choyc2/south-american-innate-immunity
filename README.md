@@ -10,7 +10,7 @@ Here, we generated a single-cell transcriptional atlas of 1.4 million peripheral
 
 ## Repository structure
 
-Scripts are organized into the following directories, roughly in the order they should be run. Each directory contains its own short README describing the inputs, outputs, and order of scripts.
+Scripts are organized into the following directories, roughly in the order they should be run. Each directory contains its own detailed README describing the inputs, outputs, and order of scripts.
 
 1. **`01_single-cell_preprocessing/`**: Read alignment, genetic demultiplexing, cell QC and annotation, pseudobulk generation, and batch-corrected gene expression matrix.
 2. **`02_genotyping_and_ancestry/`**: Genotype quality control, imputation, and estimation of global genetic ancestry.

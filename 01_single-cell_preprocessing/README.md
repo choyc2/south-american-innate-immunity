@@ -35,6 +35,28 @@ done
 
 Log files for each capture are written to `logs/`. Note that `--jobmode=slurm` requires cellranger's SLURM job template to be configured on your cluster.
 
+## `02_demultiplexing.sh`
+
+Cells in each capture were assigned to individual donors with Demuxalot, run through the Demuxafy Singularity container (v3.0.0), using donor genotypes generated as described in the Methods. Run this step after alignment has finished for a capture.
+
+Before running, edit the paths in the "User settings" section of `02_demultiplexing.sh`. `GENOTYPE_DIR` must contain, for each sequencing batch, a list of the donors in that batch (`batch<N>_inds.txt`) and their genotypes (`batch<N>.MAF0.05.GRCh38_v2.vcf.gz`). These files contain individual-level genetic data and are not included in this repository; see the [main README](https://github.com/choyc2/south-american-innate-immunity/blob/main/README.md) for data access. The batch is determined from the capture name (for example, `IAV-b1` uses batch 1).
+
+To demultiplex a single capture:
+
+```
+mkdir -p logs
+sbatch --job-name=demux_IAV-b1 02_demultiplexing.sh IAV-b1
+```
+
+To demultiplex all captures:
+
+```
+mkdir -p logs
+for capture in $(cat captures.txt); do
+  sbatch --job-name=demux_${capture} 02_demultiplexing.sh ${capture}
+done
+```
+
 ## Notes
 
 Scripts 01 and 02 were run on a high-performance computing cluster. Update the file paths at the top of each script before running.

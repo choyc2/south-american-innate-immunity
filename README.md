@@ -23,6 +23,8 @@ Scripts are organized into the following directories, roughly in the order they 
 
 ## Data availability
 
-Raw sequencing data are available at the NCBI Gene Expression Omnibus (GEO) under accession [XXXXX].
+Raw scRNA-seq sequencing data are available at the NCBI Gene Expression Omnibus (GEO) under accession [XXXXX].
 
-Processed data needed to run the downstream analyses (expression matrices, sample metadata, and ancestry estimates) are available on Zenodo at https://doi.org/10.5281/zenodo.XXXXXXX. After downloading, place these files in `data/` so that the relative paths in the scripts resolve correctly.
+Raw genotype sequencing data are available at the European Genome-phenome Archive (EGA) under accession [XXXXX].
+
+Processed data needed to run the downstream analyses (expression matrices and sample metadata) are available on Zenodo at https://doi.org/10.5281/zenodo.XXXXXXX. After downloading, place these files in `data/` so that the relative paths in the scripts resolve correctly.

@@ -1,0 +1,9 @@
+[gene-expression],,,
+reference,REFERENCE_PATH,,
+create-bam,TRUE,,
+expect-cells,50000,,
+[libraries],,,
+fastq_id,fastqs,lanes,feature_types
+LB-CC-10X-39s-S01-NI-b11-GEX,FASTQ_DIR/NI-b11/NI-b11/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-10X-39s-FC02-S01-NI-b11-GEX,FASTQ_DIR/NI-b11/NI-b11-FC02/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-10X-39s-FC03-S01-NI-b11-GEX,FASTQ_DIR/NI-b11/NI-b11-FC03/,1|2|3|4|5|6|7|8,gene expression

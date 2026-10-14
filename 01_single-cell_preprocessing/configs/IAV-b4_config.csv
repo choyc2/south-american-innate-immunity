@@ -1,0 +1,15 @@
+[gene-expression],,,
+reference,REFERENCE_PATH,,
+create-bam,TRUE,,
+expect-cells,50000,,
+[libraries],,,
+fastq_id,fastqs,lanes,feature_types
+LB-CC-20s-IAV-b4-GEX,FASTQ_DIR/IAV-b4/LB-CC-20s-IAV-b4-GEX/,1|2|3|4,gene expression
+LB-CC-50s-IAV-b4-GEX,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC02,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC02/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC03,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC03/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC04,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC04/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC05,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC05/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC06,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC06/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC07,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC07/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-IAV-b4-GEX-FC08,FASTQ_DIR/IAV-b4/LB-CC-50s-IAV-b4-GEX-FC08/,1|2|3|4|5|7|8,gene expression

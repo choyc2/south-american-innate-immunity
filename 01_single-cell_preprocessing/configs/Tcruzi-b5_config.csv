@@ -1,0 +1,14 @@
+[gene-expression],,,
+reference,REFERENCE_PATH,,
+create-bam,TRUE,,
+expect-cells,50000,,
+[libraries],,,
+fastq_id,fastqs,lanes,feature_types
+LB-CC-50s-Tcruzi-b5-GEX,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC02,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC03,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC04,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC05,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC06,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC07,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|6|7|8,gene expression
+LB-CC-50s-Tcruzi-b5-GEX-FC08,FASTQ_DIR/Tcruzi-b5/,1|2|3|4|5|7|8,gene expression

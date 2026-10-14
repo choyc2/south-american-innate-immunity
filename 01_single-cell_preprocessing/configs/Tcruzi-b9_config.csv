@@ -1,0 +1,9 @@
+[gene-expression],,,
+reference,REFERENCE_PATH,,
+create-bam,TRUE,,
+expect-cells,50000,,
+[libraries],,,
+fastq_id,fastqs,lanes,feature_types
+LB-CC-10X-GE-10s-Tcruzi-b9-GEX,FASTQ_DIR/Tcruzi-b9/Tcruzi-b9/,7|8,gene expression
+LB-CC-10X-GE-10s-FC02-Tcruzi-b9-GEX,FASTQ_DIR/Tcruzi-b9/Tcruzi-b9-FC02/,1|2|3,gene expression
+LB-CC-10X-GE-10s-FC03-Tcruzi-b9-GEX,FASTQ_DIR/Tcruzi-b9/Tcruzi-b9-FC03/,1|2|3|4|5|6|7,gene expression

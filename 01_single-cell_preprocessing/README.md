@@ -6,8 +6,8 @@ Scripts to process raw single-cell RNA-seq reads into a batch-corrected pseudobu
 |--------|-------------|-------|--------|
 | `01_alignment.sh` | Aligns reads and generates count matrices using cellranger multi (10x Genomics, v9.0.1) | Raw FASTQ files, config files | Gene-by-cell count matrices |
 | `02_demultiplexing.sh` | Assigns cells to individuals using genotype data with demuxalot (v0.4.1) | Count matrices, genotype VCF | Cell-to-individual assignments |
-| `03_cell_QC_and_annotation.R` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered cells |
-| `04_merge.R` | Creates a single Seurat file containing all captures | Individuals capture Seurat objects | Merged Seurat object |
+| `03_cell_QC_and_annotation.R`, `03_cell_QC_and_annotation.sh` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered cells |
+| `04_merge.R`, `04_merge.sh` | Creates a single Seurat file containing all captures | Individuals capture Seurat objects | Merged Seurat object |
 | `05_pseudobulk.R` | Sums counts per individual, cell type, and condition | Annotated cells | Pseudobulk counts |
 | `06_batch_correction.R` | Normalizes and corrects for batch/capture effects | Pseudobulk counts | Batch-corrected expression matrix |
 

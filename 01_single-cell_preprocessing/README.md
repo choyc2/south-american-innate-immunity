@@ -84,6 +84,8 @@ done
 
 Once each capture is converted to its own Seurat file, this script merges all captures into a single unnormalized Seurat object, adds condition, batch, and 10x chemistry to the metadata, and removes donors not included in this study.
 
+Before running, edit the paths in the "User settings" section at the top of `04_merge.R`, as well as the `--partition` and `--account` lines in `04_merge.sh`, to match your system.
+
 To merge into single Seurat object:
 
 ```

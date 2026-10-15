@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=06_pbmc_integration_pseudobulk
+#SBATCH --job-name=06_integration_pseudobulk
 #SBATCH --time=30:00:00
 #SBATCH --mem=400G
 #SBATCH --partition=YOUR_PARTITION

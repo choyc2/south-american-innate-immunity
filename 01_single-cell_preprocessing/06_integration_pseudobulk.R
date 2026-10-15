@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# 06_pbmc_integration_pseudobulk.R
+# 06_integration_pseudobulk.R
 # Integrates all cells kept by 05_celltype_annotation.R, then creates pseudobulk
 # counts per donor and capture for the five main cell types (CD4T, CD8T, NK,
 # monocyte, B).

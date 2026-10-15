@@ -61,6 +61,8 @@ done
 
 This script creates a Seurat object for each capture, adds the Demuxalot donor assignments, and removes cells with ≤200 or ≥6,000 detected genes, ≥10% mitochondrial reads, or a doublet assignment. Cell types are then assigned at three resolutions by reference mapping to the PBMC atlas from [Hao et al. (2021)](https://www.cell.com/cell/fulltext/S0092-8674(21)00583-3?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867421005833%3Fshowall%3Dtrue), downloaded from [here](https://atlas.fredhutch.org/nygc/multimodal-pbmc/).
 
+Before running, edit the paths in the "User settings" section at the top of `03_cell_QC_and_annotation.R`, as well as the `--partition` and `--account` lines in `03_cell_QC_and_annotation.sh`, to match your system.
+
 To run QC on a single capture:
 
 ```

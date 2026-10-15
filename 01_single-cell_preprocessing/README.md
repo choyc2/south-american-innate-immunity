@@ -6,8 +6,8 @@ Scripts to process raw single-cell RNA-seq reads into a batch-corrected pseudobu
 |--------|-------------|-------|--------|
 | `01_alignment.sh` | Aligns reads and generates count matrices using cellranger multi (10x Genomics, v9.0.1) | Raw FASTQ files, config files | Gene-by-cell count matrices |
 | `02_demultiplexing.sh` | Assigns cells to individuals using genotype data with demuxalot (v0.4.1) | Count matrices, genotype VCF | Cell-to-individual assignments |
-| `03_cell_QC.R` | Removes low-quality cells and doublets | Count matrices, assignments | Filtered cells |
-| `04_annotation.R` | Annotates cell types | Filtered cells, reference dataset | Annotated cells |
+| `03_cell_QC_and_annotation.R` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered cells |
+| `04_merge.R` | Creates a single Seurat file containing all captures | Individuals capture Seurat objects | Merged Seurat object |
 | `05_pseudobulk.R` | Sums counts per individual, cell type, and condition | Annotated cells | Pseudobulk counts |
 | `06_batch_correction.R` | Normalizes and corrects for batch/capture effects | Pseudobulk counts | Batch-corrected expression matrix |
 
@@ -57,6 +57,37 @@ for capture in $(cat captures.txt); do
 done
 ```
 
+## `03_cell_QC_and_annotation.R`
+
+This script creates a Seurat object for each capture, adds the Demuxalot donor assignments, and removes cells with ≤200 or ≥6,000 detected genes, ≥10% mitochondrial reads, or a doublet assignment. Cell types are then assigned at three resolutions by reference mapping to the PBMC atlas from [Hao et al. (2021)](https://www.cell.com/cell/fulltext/S0092-8674(21)00583-3?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867421005833%3Fshowall%3Dtrue), downloaded from [here](https://atlas.fredhutch.org/nygc/multimodal-pbmc/).
+
+To run QC on a single capture:
+
+```
+mkdir -p logs
+sbatch --job-name=qc_IAV-b1 03_cell_QC_and_annotation.sh IAV-b1
+
+```
+
+To run QC on all captures:
+
+```
+mkdir -p logs
+for capture in $(cat captures.txt); do
+  sbatch --job-name=qc_${capture} 03_cell_QC_and_annotation.sh ${capture}
+done
+```
+
+## `04_merge.R`
+
+Once each capture is converted to its own Seurat file, this script merges all captures into a single unnormalized Seurat object, adds condition, batch, and 10x chemistry to the metadata, and removes donors not included in this study.
+
+To merge into single Seurat object:
+
+```
+sbatch 04_merge.sh
+```
+
 ## Notes
 
-Scripts 01 and 02 were run on a high-performance computing cluster. Update the file paths at the top of each script before running.
+Scripts 01-05 were run on a high-performance computing cluster. Update the file paths at the top of each script before running.

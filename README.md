@@ -8,6 +8,10 @@ This repository contains the code necessary to reproduce the analyses published 
 
 Here, we generated a single-cell transcriptional atlas of 1.4 million peripheral blood mononuclear cells from 345 individuals representing 12 Indigenous populations from Brazil, Chile, and Peru and one European-ancestry comparison group living in Chile. Cells were profiled at baseline and following stimulation with bacterial lipopolysaccharide (LPS), influenza A virus, and the protozoan parasite *Trypanosoma cruzi*. We show that genetic ancestry contributes broadly to context-dependent immune gene expression in Indigenous South American populations and that these differences in gene expression are substantially explained by local regulatory variants, many of which are rare in European datasets and colocalize with GWAS loci for immune-related traits.
 
+<p align="center">
+  <img src="images/Study_Figure.jpg" width="500">
+</p>
+
 ## Repository structure
 
 Scripts are organized into the following directories, roughly in the order they should be run. Each directory contains its own detailed README describing the inputs, outputs, and order of scripts.

@@ -1,15 +1,16 @@
 # 01. Single-cell preprocessing
 
-Scripts to process raw single-cell RNA-seq reads into a batch-corrected pseudobulk gene expression matrix. Run the scripts in numbered order.
+Scripts to process raw scRNA-seq reads into a batch-corrected pseudobulk gene expression matrix. Run the scripts in numbered order.
 
 | Script | Description | Input | Output |
 |--------|-------------|-------|--------|
-| `01_alignment.sh` | Aligns reads and generates count matrices using cellranger multi (10x Genomics, v9.0.1) | Raw FASTQ files, config files | Gene-by-cell count matrices |
-| `02_demultiplexing.sh` | Assigns cells to individuals using genotype data with demuxalot (v0.4.1) | Count matrices, genotype VCF | Cell-to-individual assignments |
+| `01_alignment.sh` | Aligns reads and generates count matrices using cellranger | Raw FASTQ files, config files | Gene-by-cell count matrices |
+| `02_demultiplexing.sh` | Assigns cells to individuals using genotype data with demuxalot | Count matrices, genotype VCF | Cell-to-individual assignments |
 | `03_cell_QC_and_annotation.R`, `03_cell_QC_and_annotation.sh` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered cells |
-| `04_merge.R`, `04_merge.sh` | Creates a single Seurat file containing all captures | Individuals capture Seurat objects | Merged Seurat object |
-| `05_pseudobulk.R` | Sums counts per individual, cell type, and condition | Annotated cells | Pseudobulk counts |
-| `06_batch_correction.R` | Normalizes and corrects for batch/capture effects | Pseudobulk counts | Batch-corrected expression matrix |
+| `04_merge.R`, `04_merge.sh` | Creates a single Seurat file containing all captures | Individual Seurat objects by capture | Merged Seurat object |
+| `05_celltype_annotation.R`, `05_celltype_annotation.sh` | Refines cell type annotations | Merged Seurat object | Finalized list of high-quality cells and their annotations |
+| `06_integration_psuedobulk.R`, `06_integration_psuedobulk.sh` | Performs final integration and creates pseudobulk matrices | Finalized list of high-quality cells | UMAP coordinates, pseudobulk counts matrices |
+| `07_capture_corrected_expression_matrices.R` | Corrects for technical capture effects in gene expression matrix | Pseudobulk counts matrices | Capture-corrected counts matrices |
 
 ## `01_alignment.sh`
 
@@ -37,7 +38,7 @@ Log files for each capture are written to `logs/`. Note that `--jobmode=slurm` r
 
 ## `02_demultiplexing.sh`
 
-Cells in each capture were assigned to individual donors with Demuxalot, run through the Demuxafy Singularity container (v3.0.0), using donor genotypes generated as described in the Methods. Run this step after alignment has finished for a capture.
+Cells in each capture were assigned to individual donors with Demuxalot (v0.4.1), run through the Demuxafy Singularity container (v3.0.0), using donor genotypes generated as described in the Methods. Run this step after alignment has finished for a capture.
 
 Before running, edit the paths in the "User settings" section of `02_demultiplexing.sh`. `GENOTYPE_DIR` must contain, for each sequencing batch, a list of the donors in that batch (`batch<N>_inds.txt`) and their genotypes (`batch<N>.MAF0.05.GRCh38_v2.vcf.gz`). These files contain individual-level genetic data and are not included in this repository; see the [main README](https://github.com/choyc2/south-american-innate-immunity/blob/main/README.md) for data access. The batch is determined from the capture name (for example, `IAV-b1` uses batch 1).
 

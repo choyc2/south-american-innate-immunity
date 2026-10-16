@@ -27,7 +27,7 @@ Scripts are organized into the following directories, roughly in the order they 
 
 ## Data availability
 
-Raw scRNA-seq sequencing data are available at the NCBI Gene Expression Omnibus (GEO) under accession [XXXXX].
+Raw scRNA-seq sequencing data are available at the NCBI Gene Expression Omnibus (GEO) under accession GSE351087.
 
 Raw genotype sequencing data are available at the European Genome-phenome Archive (EGA) under accession [XXXXX].
 

@@ -6,10 +6,10 @@ Scripts to process raw scRNA-seq reads into a batch-corrected pseudobulk gene ex
 |--------|-------------|-------|--------|
 | `01_alignment.sh` | Aligns reads and generates count matrices using cellranger | Raw FASTQ files, config files | Gene-by-cell count matrices |
 | `02_demultiplexing.sh` | Assigns cells to individuals using genotype data with demuxalot | Count matrices, genotype VCF | Cell-to-individual assignments |
-| `03_cell_QC_and_annotation.R`, `03_cell_QC_and_annotation.sh` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered cells |
+| `03_cell_QC_and_annotation.R`, `03_cell_QC_and_annotation.sh` | Removes low-quality cells and doublets, assigns cell type labels from reference dataset | Count matrices, reference dataset | Filtered and annotated cells |
 | `04_merge.R`, `04_merge.sh` | Creates a single Seurat file containing all captures | Individual Seurat objects by capture | Merged Seurat object |
 | `05_celltype_annotation.R`, `05_celltype_annotation.sh` | Refines cell type annotations | Merged Seurat object | Finalized list of high-quality cells and their annotations |
-| `06_integration_psuedobulk.R`, `06_integration_psuedobulk.sh` | Performs final integration and creates pseudobulk matrices | Finalized list of high-quality cells | UMAP coordinates, pseudobulk counts matrices |
+| `06_integration_psuedobulk.R`, `06_integration_psuedobulk.sh` | Performs final integration and creates pseudobulk matrices | Finalized list of high-quality cells, merged Seurat object | UMAP coordinates, pseudobulk counts matrices |
 | `07_capture_corrected_expression_matrices.R` | Corrects for technical capture effects in gene expression matrix | Pseudobulk counts matrices | Capture-corrected counts matrices |
 
 ## `01_alignment.sh`
@@ -69,7 +69,6 @@ To run QC on a single capture:
 ```
 mkdir -p logs
 sbatch --job-name=qc_IAV-b1 03_cell_QC_and_annotation.sh IAV-b1
-
 ```
 
 To run QC on all captures:
@@ -93,6 +92,33 @@ To merge into single Seurat object:
 sbatch 04_merge.sh
 ```
 
+## `05_celltype_annotation.R`
+
+This script refines the cell type assignments for each of the eight broad cell types (B, CD4T, CD8T, DC, monocyte, NK, otherT, other). For each cell type, cells are normalized, integrated across conditions with RPCA, and clustered. Cells are kept if their reference cell type labels agree at all three resolutions (celltype.l1, l2, and l3) and they belong to a cluster retained after manual inspection of marker genes.
+
+Before running, edit the paths in the "User settings" section at the top of `05_celltype_annotation.R`, as well as the `--partition` and `--account` lines in `05_celltype_annotation.sh`, to match your system.
+
+To run:
+
+```
+mkdir -p logs
+for ct in B CD4T CD8T DC monocyte NK otherT other; do
+  sbatch --job-name=annot_${ct} 05_celltype_annotation.sh ${ct}
+done
+```
+
+## `06_integration_pseudobulk.R`
+
+Integrates all retained cells together (1,396,931 cells) and computes UMAP coordinates. It then sums counts per donor and condition (pseudobulk) for the five main cell types: CD4T, CD8T, NK, monocyte, and B. The influenza A gene "NA" is read into R as a missing value and dropped when Seurat objects are created, so its counts are read directly from the Cell Ranger output and added to the pseudobulk count matrices as `IAV_NA`. A finalized list of retained cells and their UMAP coordinates are written to `final_pbmc_seurat_south_american_innate_metadata.rds` and the raw pseudobulk counts matrices are written to `raw_counts_list_unfiltered.rds`, both of which are available on Zenodo (https://doi.org/10.5281/zenodo.XXXXXXX).
+
+Before running, edit the paths in the "User settings" section at the top of `06_integration_pseudobulk.R`, as well as the `--partition` and `--account` lines in `06_integration_pseudobulk.sh`, to match your system.
+
+To run:
+
+```
+sbatch 06_pbmc_integration_pseudobulk.sh
+```
+
 ## Notes
 
-Scripts 01-05 were run on a high-performance computing cluster. Update the file paths at the top of each script before running.
+Scripts 01-06 were run on a high-performance computing cluster. Update the file paths at the top of each script before running.

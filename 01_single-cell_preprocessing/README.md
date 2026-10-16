@@ -109,7 +109,7 @@ done
 
 ## `06_integration_pseudobulk.R`
 
-Integrates all retained cells together (1,396,931 cells) and computes UMAP coordinates. It then sums counts per donor and condition (pseudobulk) for the five main cell types: CD4T, CD8T, NK, monocyte, and B. The influenza A gene "NA" is read into R as a missing value and dropped when Seurat objects are created, so its counts are read directly from the Cell Ranger output and added to the pseudobulk count matrices as `IAV_NA`. A finalized list of retained cells and their UMAP coordinates are written to `final_pbmc_seurat_south_american_innate_metadata.rds` and the raw pseudobulk counts matrices are written to `raw_counts_list_unfiltered.rds`, both of which are available on Zenodo (https://doi.org/10.5281/zenodo.XXXXXXX).
+Integrates all retained cells together (1,396,931 cells) and computes UMAP coordinates. It then sums counts per donor and condition (pseudobulk) for the five main cell types: CD4T, CD8T, NK, monocyte, and B. The influenza A gene "NA" is read into R as a missing value and dropped when Seurat objects are created, so its counts are read directly from the cellranger output and added to the pseudobulk count matrices as `IAV_NA`. A finalized list of retained cells and their UMAP coordinates are written to `final_pbmc_seurat_south_american_innate_metadata.rds` and the raw pseudobulk counts matrices are written to `raw_counts_list_unfiltered.rds`, both of which are available on Zenodo (https://doi.org/10.5281/zenodo.XXXXXXX).
 
 Before running, edit the paths in the "User settings" section at the top of `06_integration_pseudobulk.R`, as well as the `--partition` and `--account` lines in `06_integration_pseudobulk.sh`, to match your system.
 
@@ -118,6 +118,10 @@ To run:
 ```
 sbatch 06_pbmc_integration_pseudobulk.sh
 ```
+
+## `07_capture_corrected_expression_matrices.R`
+
+
 
 ## Notes
 

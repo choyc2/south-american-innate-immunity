@@ -1,14 +1,12 @@
 # Data
 
-Data files are not stored in this repository. Download the processed data from Zenodo (https://doi.org/10.5281/zenodo.XXXXXXX) and place the files here, so that this folder contains:
+Data files are not stored in this repository. There are two ways to get them:
 
-- `meta_list_filtered_missingNI.rds`
-- `corrected_counts_list_filtered_missingNI.rds`
-- `weights_list_filtered_missingNI.rds`
-- `meta_list_filtered_missingBMI.rds`
-- `corrected_counts_list_filtered_missingBMI.rds`
-- `weights_list_filtered_missingBMI.rds`
-- `delta_corrected_counts_list_filtered_missingNI.rds`
-- `delta_meta_list_filtered_missingNI.rds`
+1. **Start from the processed data (recommended).** Download the files from Zenodo (https://doi.org/10.5281/zenodo.23425836) into the matching folders below. You can then run the downstream analyses directly without the preprocessing steps.
+2. **Reproduce the preprocessing.** Download the raw data from GEO (GSE351087), and run the scripts in `01_single-cell_preprocessing/`. They write their outputs to the same folders.
 
-Raw sequencing data are available at the NCBI Gene Expression Omnibus (GEO) under accession [XXXXX].
+| Folder | Contents | Source |
+|--------|----------|--------|
+| `metadata/` | Sample metadata | Zenodo |
+| `integration/` | List of retained cells after QC, raw counts matrices | Zenodo or Scripts 05–06 |
+| `counts_and_weights/` | Capture-corrected expression matrices and voom weights | Zenodo or Script 07 |

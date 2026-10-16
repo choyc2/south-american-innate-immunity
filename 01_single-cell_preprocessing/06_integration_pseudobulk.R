@@ -3,7 +3,7 @@
 # Integrates all cells kept by 05_celltype_annotation.R, then creates pseudobulk
 # counts per donor and capture for the five main cell types (CD4T, CD8T, NK,
 # monocyte, B).
-# Usage: Rscript 06_pbmc_integration_pseudobulk.R
+# Usage: Rscript 06_integration_pseudobulk.R
 # Run with R 4.3.1, Seurat 5.1.0, dplyr 1.1.4, stringr 1.5.1.
 
 suppressPackageStartupMessages({
@@ -15,10 +15,11 @@ suppressPackageStartupMessages({
 
 # ---------------- User settings: edit these paths ----------------
 merged_file     <- "/path/to/merged_seurat_unnormalized.rds"   # output of 04_merge.R
-integration_dir <- "/path/to/integration"                      # same as in 05_celltype_annotation.R
+integration_dir <- "../data/integration"                       # relative to this folder; see data/README.md
 align_dir       <- "/path/to/alignment"                        # OUTPUT_DIR in 01_alignment.sh
 captures_file   <- "captures.txt"
 # ------------------------------------------------------------------
+dir.create(integration_dir, recursive = TRUE, showWarnings = FALSE)
 
 
 ##########################################
@@ -55,13 +56,12 @@ seurat@meta.data <- seurat@meta.data[c("orig.ident", "condition", "batch", "dono
                                        "celltype.l3", "celltype.l1_manual",
                                        "celltype.l2_manual", "integrated_clusters")]
 
-saveRDS(seurat, file.path(integration_dir, "final_pbmc_seurat_south_america_innate.rds"))
 metadata <- cbind(seurat@meta.data, Embeddings(seurat, reduction = "rna.umap"))
 saveRDS(metadata, file.path(integration_dir, "final_pbmc_seurat_south_america_innate_metadata.rds"))
 
 
 ##########################################
-##            PSEUDOBULK                ##
+##              PSEUDOBULK              ##
 ##########################################
 # Number of cells per donor, capture, and cell type. AggregateExpression
 # replaces "_" with "-" in sample names, so match that here.
@@ -91,14 +91,13 @@ for (ct in main_celltypes) {
   pseudo_list[[ct]] <- make_pseudobulk(subset(seurat, subset = celltype.l1_manual == ct),
                                        counts_ct, ct)
 }
-saveRDS(pseudo_list, file.path(integration_dir, "pseudo_list.rds"))
 
 
 ##########################################
-##   ADD THE INFLUENZA "NA" GENE        ##
+##     ADD THE INFLUENZA "NA" GENE      ##
 ##########################################
 # The influenza A gene "NA" is read into R as a missing value and dropped when the
-# Seurat objects are created. Its counts are read directly from the cellranger
+# Seurat objects are created. Its counts are read directly from the Cell Ranger
 # output and added to the cell type pseudobulk count matrices as "IAV_NA".
 captures <- readLines(captures_file)
 na_counts <- unlist(unname(lapply(captures[captures != ""], function(capture) {

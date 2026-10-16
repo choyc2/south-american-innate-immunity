@@ -4,20 +4,22 @@
 # manual annotation decisions below. Writes the cells kept and their final labels.
 # Usage: Rscript 05_celltype_annotation.R monocyte
 # Run with R 4.3.1, Seurat 5.1.0.
-
+ 
 suppressPackageStartupMessages({
   library(Seurat)
   library(future)
 })
-
+ 
 # ---------------- User settings: edit these paths ----------------
 merged_file     <- "/path/to/merged_seurat_unnormalized.rds"   # output of 04_merge.R
-integration_dir <- "/path/to/integration"
+integration_dir <- "../data/integration"                       # relative to this folder; see data/README.md
 # ------------------------------------------------------------------
-
-# Manual annotation decisions are based on inspection of marker genes (see Methods
-# section). A cell is kept if its celltype.l2 and celltype.l3 assignments are valid
-# subsets of the cell's celltype.l1 assignment.
+dir.create(integration_dir, recursive = TRUE, showWarnings = FALSE)
+ 
+# Manual annotation decisions, based on inspection of marker genes, donor
+# composition, and UMAPs. A cell is kept if its reference celltype.l3 label is in
+# l3_to_label (which gives its final fine label), its celltype.l2 label is in l2,
+# and its cluster is in keep_clusters.
 tcm_tem <- function(type, n_tcm, n_tem) {
   c(setNames(rep(paste0(type, "_TCM"), n_tcm), paste0(type, " TCM_", 1:n_tcm)),
     setNames(rep(paste0(type, "_TEM"), n_tem), paste0(type, " TEM_", 1:n_tem)))
@@ -71,7 +73,7 @@ decisions <- list(
                l2 = "HSPC",
                keep_clusters = 11)
 )
-
+ 
 celltype <- commandArgs(trailingOnly = TRUE)[1]
 if (is.na(celltype) || !celltype %in% names(decisions)) {
   stop("Usage: Rscript 05_celltype_annotation.R <one of: ",
@@ -79,11 +81,11 @@ if (is.na(celltype) || !celltype %in% names(decisions)) {
 }
 d <- decisions[[celltype]]
 target_l1 <- d$l1
-
+ 
 # Subset to this cell type
 seurat <- readRDS(merged_file)
 seurat <- subset(seurat, subset = celltype.l1 == target_l1)
-
+ 
 # Normalize, integrate across conditions, and cluster
 seurat <- NormalizeData(seurat)
 seurat <- FindVariableFeatures(seurat, selection.method = "vst", nfeatures = 2000)
@@ -96,13 +98,13 @@ seurat <- IntegrateLayers(seurat, method = RPCAIntegration, orig.reduction = "pc
                           normalization.method = "LogNormalize")
 seurat <- FindNeighbors(seurat, dims = 1:30, reduction = "integrated.rpca")
 seurat <- FindClusters(seurat, resolution = 0.8, cluster.name = "integrated_clusters")
-
+ 
 # Apply the decisions and save the cells kept
 meta <- seurat@meta.data
 keep <- meta$celltype.l3 %in% names(d$l3_to_label) &
         meta$celltype.l2 %in% d$l2 &
         meta$integrated_clusters %in% as.character(d$keep_clusters)
-
+ 
 write.csv(data.frame(cell_barcode       = rownames(meta)[keep],
                      celltype.l1_manual = d$label,
                      celltype.l2_manual = unname(d$l3_to_label[meta$celltype.l3[keep]])),

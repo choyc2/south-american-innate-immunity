@@ -49,6 +49,12 @@ seurat <- FindClusters(seurat, resolution = 0.8, cluster.name = "integrated_clus
 seurat <- RunUMAP(seurat, reduction = "integrated.rpca", dims = 1:60,
                   reduction.name = "rna.umap", reduction.key = "UMAP_", min.dist = 0.3)
 
+seurat@meta.data <- seurat@meta.data[c("orig.ident", "condition", "batch", "donor_id",
+                                       "nCount_RNA", "nFeature_RNA", "percent.mt",
+                                       "technology", "celltype.l1", "celltype.l2",
+                                       "celltype.l3", "celltype.l1_manual",
+                                       "celltype.l2_manual", "integrated_clusters")]
+
 saveRDS(seurat, file.path(integration_dir, "final_pbmc_seurat_south_america_innate.rds"))
 metadata <- cbind(seurat@meta.data, Embeddings(seurat, reduction = "rna.umap"))
 saveRDS(metadata, file.path(integration_dir, "final_pbmc_seurat_south_america_innate_metadata.rds"))

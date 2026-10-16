@@ -2,7 +2,7 @@
 
 This repository contains the code necessary to reproduce the analyses published in:
 
-> Choy C\*, Vicuña L\*, et al. Genetic ancestry shapes context-dependent immune regulation across Indigenous South American populations. *bioRxiv* (2026).
+> Choy C\*, Vicuña L\*, et al. Genetic ancestry shapes context-dependent immune regulation across Indigenous South American populations. *medRxiv* (2026).
 
 ## Overview
 
@@ -31,4 +31,4 @@ Raw scRNA-seq sequencing data are available at the NCBI Gene Expression Omnibus 
 
 Raw genotype sequencing data are available at the European Genome-phenome Archive (EGA) under accession [XXXXX].
 
-Processed data needed to run the downstream analyses (expression matrices and sample metadata) are available on Zenodo at https://doi.org/10.5281/zenodo.XXXXXXX. After downloading, place these files in `data/` so that the relative paths in the scripts resolve correctly.
+Processed data (i.e., metadata, gene expression matrices) needed to run the downstream main analyses are available on Zenodo (https://doi.org/10.5281/zenodo.23425836). After downloading, place these files in `data/` so that the relative paths in the scripts resolve correctly.

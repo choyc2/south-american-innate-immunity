@@ -116,7 +116,7 @@ Before running, edit the paths in the "User settings" section at the top of `06_
 To run:
 
 ```
-sbatch 06_pbmc_integration_pseudobulk.sh
+sbatch 06_integration_pseudobulk.sh
 ```
 
 ## `07_capture_corrected_expression_matrices.R`

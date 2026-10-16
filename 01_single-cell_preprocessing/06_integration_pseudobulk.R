@@ -15,8 +15,8 @@ suppressPackageStartupMessages({
 
 # ---------------- User settings: edit these paths ----------------
 merged_file     <- "/path/to/merged_seurat_unnormalized.rds"   # output of 04_merge.R
-integration_dir <- "/path/to/integration"                     # same as in 05_celltype_annotation.R
-align_dir       <- "/path/to/alignment"                       # OUTPUT_DIR in 01_alignment.sh
+integration_dir <- "/path/to/integration"                      # same as in 05_celltype_annotation.R
+align_dir       <- "/path/to/alignment"                        # OUTPUT_DIR in 01_alignment.sh
 captures_file   <- "captures.txt"
 # ------------------------------------------------------------------
 

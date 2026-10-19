@@ -31,4 +31,4 @@ Raw scRNA-seq sequencing data are available at the NCBI Gene Expression Omnibus 
 
 Raw genotype sequencing data are available at the European Genome-phenome Archive (EGA) under accession [XXXXX].
 
-Processed data (i.e., metadata, gene expression matrices) needed to run the downstream main analyses are available on Zenodo (https://doi.org/10.5281/zenodo.23425836). Please see the [`data/` README](https://github.com/choyc2/south-american-innate-immunity/tree/main/data) for more detailed instructions.
+Processed data (i.e., metadata, gene expression matrices) needed to run the downstream main analyses are available on Zenodo (https://doi.org/10.5281/zenodo.23425836). Please see the [`data/README.md`](https://github.com/choyc2/south-american-innate-immunity/tree/main/data) for more detailed instructions.

@@ -11,4 +11,4 @@ Data files are not stored in this repository. Download `data.zip` from Zenodo (h
 With these files you can:
 
 1. **Start from the processed data (recommended).** All files required to run the downstream main analyses are provided in `data.zip` so that you do not have to run the preprocessing steps yourself.
-2. **Reproduce the preprocessing.** Download the raw scRNA-seq data from GEO (GSE351087), and run the scripts in `01_single-cell_preprocessing/` which will regenerate the files in `integration/` and `counts_and_weights/`.
+2. **Reproduce the preprocessing.** Download the raw scRNA-seq data from GEO (GSE351087), and run the scripts in `01_single-cell_preprocessing/`. Note that you still need to download `data.zip` since preprocessing requires the files in `metadata/`. The scripts will regenerate the files in `integration/` and `counts_and_weights/`, overwriting the downloaded copies.

@@ -1,6 +1,6 @@
 # 01. Single-cell preprocessing
 
-Scripts to process raw scRNA-seq reads into a batch-corrected pseudobulk gene expression matrix. Run the scripts in numbered order.
+Scripts to process raw scRNA-seq reads into a batch-corrected pseudobulk gene expression matrix. Note that running the scripts in this directory is optional since the final, preprocessed versions of all files used in the main analyses of this paper are available on Zenodo (see [`data/README.md`](https://github.com/choyc2/south-american-innate-immunity/blob/main/data/README.md) for more information). To reproduce the preprocessing, run the following scripts in numbered order.
 
 | Script | Description | Input | Output |
 |--------|-------------|-------|--------|

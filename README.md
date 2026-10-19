@@ -18,7 +18,7 @@ Scripts are organized into the following directories, roughly in the order they 
 
 1. **`01_single-cell_preprocessing/`**: Read alignment, genetic demultiplexing, cell QC and annotation, pseudobulk generation, and capture-corrected gene expression matrix.
 2. **`02_genotyping_and_ancestry/`**: Genotype quality control, imputation, and estimation of global genetic ancestry.
-3. **`03_immune_response/`**: Differential expression analyses characterizing transcriptional responses to each immune stimulus.
+3. **`03_stimulation_effects/`**: Differential expression analyses characterizing transcriptional responses to each immune stimulus.
 4. **`04_ancestry_effects/`**: Analyses related to ancestry-associated gene expression and how these effects vary across immune contexts.
 5. **`05_eQTL_mapping/`**: Mapping of expression QTL and response eQTL across conditions.
 6. **`06_global_ancestry_PVE/`**: Quantifying the genetic contribution of eQTLs to variation in ancestry-associated gene expression.

@@ -17,7 +17,7 @@ suppressPackageStartupMessages({
 counts_file     <- "../data/integration/raw_counts_list_unfiltered.rds"
 metadata_dir    <- "../data/metadata"
 output_dir      <- "../data/counts_and_weights"
-ensembl_release <- 116                                       # Ensembl release used for gene biotypes
+ensembl_release <- 115                                       # Ensembl release used for gene biotypes
 # Minimum median log-CPM for a gene to count as highly expressed in each cell type
 median_thresholds <- c(NK = 2.5, CD8T = 2.5, monocyte = 1.5, B = 2, CD4T = 2)
 # ------------------------------------------------------------------
@@ -48,7 +48,7 @@ gtf <- gtf[grepl("\tgene\t", gtf) & grepl('gene_biotype "protein_coding"', gtf, 
            grepl("gene_name", gtf, fixed = TRUE)]
 protein_coding <- unique(sub('.*gene_name "([^"]+)".*', "\\1", gtf))
 
-# Keep protein-coding genes and samples in the metadata (at least 10 cells making up pseudobulk)
+# Keep protein-coding genes and samples in the metadata (samples with at least 10 cells making up pseudobulk)
 counts_list <- lapply(celltypes, function(ct) {
   counts <- as.matrix(counts_list[[ct]])
   counts <- counts[rownames(counts) %in% protein_coding, , drop = FALSE]

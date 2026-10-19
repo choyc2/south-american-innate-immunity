@@ -123,6 +123,8 @@ sbatch 06_integration_pseudobulk.sh
 
 This script prepares the expression data used in the downstream analyses. For each of the five main cell types, it keeps protein-coding genes and samples with at least 10 cells making up the pseudobulk. It then keeps genes highly expressed in at least one cell type, defined as a median log-CPM above a cell type-specific threshold. Using limma-voom, capture effects are then regressed out while condition effects are retained.
 
+From the capture-corrected gene expression matrix, we constructed three different matrices, each containing a different subset of samples. The first matrix (`corrected_counts_list_unfiltered.rds`) contains all individuals. The second matrix (`corrected_counts_list_filtered_missingNI.rds`) was restricted to individuals with paired control-stimulation samples; any stimulation sample lacking a matched control was dropped. This gene expression matrix was used to model stimulation effects. The third matrix (`corrected_counts_list_filtered_missingBMI.rds`) was restricted to individuals with available BMI metadata, a covariate required for modeling genetic ancestry effects.
+
 ## Notes
 
 Scripts 01-06 were run on a high-performance computing cluster. Update the file paths at the top of each script before running. Script 07 was run locally.

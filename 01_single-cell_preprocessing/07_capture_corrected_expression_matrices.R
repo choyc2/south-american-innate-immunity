@@ -1,11 +1,11 @@
 #!/usr/bin/env Rscript
 # 07_capture_corrected_expression_matrices.R
-# For each of the five main cell types: keeps protein-coding genes and samples in
+# For each of the five main cell types: keeps human protein-coding genes and samples in
 # the metadata, keeps genes highly expressed in at least one cell type, and
 # regresses out capture effects while keeping condition effects. Saves corrected
 # expression and voom weights for all samples and for two filtered sample sets.
 # Usage: Rscript 07_capture_corrected_expression_matrices.R
-# Run with R 4.3.1, limma [version], edgeR [version], biomaRt [version].
+# Run with R 4.3.3, limma 4.58.1, edgeR 4.0.16, biomaRt 2.58.2.
 
 suppressPackageStartupMessages({
   library(limma)
@@ -18,7 +18,6 @@ suppressPackageStartupMessages({
 counts_file     <- "../data/integration/raw_counts_list_unfiltered.rds"
 metadata_dir    <- "../data/metadata"
 output_dir      <- "../data/counts_and_weights"
-ensembl_version <- 000                                         # Ensembl release used for gene biotypes
 # Minimum median log-CPM for a gene to count as highly expressed in each cell type
 median_thresholds <- c(NK = 2.5, CD8T = 2.5, monocyte = 1.5, B = 2, CD4T = 2)
 # ------------------------------------------------------------------
@@ -40,7 +39,7 @@ run_voom <- function(counts, meta) {
 
 
 # Keep protein-coding genes, and samples in the metadata (at least 10 cells)
-mart <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl", version = ensembl_version)
+mart <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
 genes <- getBM(attributes = c("external_gene_name", "gene_biotype"), mart = mart)
 protein_coding <- genes$external_gene_name[genes$gene_biotype == "protein_coding"]
 
